@@ -2,14 +2,15 @@ require('dotenv').config();
 import Redis from 'ioredis';
 import Fastify from 'fastify';
 import FastifyCors from '@fastify/cors';
-import books from './routes/books';
-import anime from './routes/anime';
-import manga from './routes/manga';
-import comics from './routes/comics';
-import lightnovels from './routes/light-novels';
+import fastifyJwt from '@fastify/jwt';
+// import books from './routes/books';
+// import anime from './routes/anime';
+// import manga from './routes/manga';
+// import comics from './routes/comics';
+// import lightnovels from './routes/light-novels';
 import movies from './routes/movies';
-import meta from './routes/meta';
-import news from './routes/news';
+// import meta from './routes/meta';
+// import news from './routes/news';
 import chalk from 'chalk';
 import Utils from './utils';
 
@@ -42,16 +43,29 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
     methods: 'GET',
   });
 
-  await fastify.register(books, { prefix: '/books' });
-  await fastify.register(anime, { prefix: '/anime' });
-  await fastify.register(manga, { prefix: '/manga' });
+  // await fastify.register(books, { prefix: '/books' });
+  // await fastify.register(anime, { prefix: '/anime' });
+  // await fastify.register(manga, { prefix: '/manga' });
   //await fastify.register(comics, { prefix: '/comics' });
-  await fastify.register(lightnovels, { prefix: '/light-novels' });
+  // await fastify.register(lightnovels, { prefix: '/light-novels' });
   await fastify.register(movies, { prefix: '/movies' });
-  await fastify.register(meta, { prefix: '/meta' });
-  await fastify.register(news, { prefix: '/news' });
+  // await fastify.register(meta, { prefix: '/meta' });
+  // await fastify.register(news, { prefix: '/news' });
 
   await fastify.register(Utils, { prefix: '/utils' });
+
+  const secret = process.env.SECRET!
+  fastify.register(fastifyJwt, {
+    secret: secret
+  })
+
+  fastify.addHook("onRequest", async (request, reply) => {
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
+  })
 
   try {
     fastify.get('/', (_, rp) => {
