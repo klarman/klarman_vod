@@ -95,22 +95,20 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
       })
 
       const results = {
-        main_screen: {
-          sections: [
-            {
-              title: "Trending TV Series",
-              media_items: [
-                ...formattedTvTrending
-              ]
-            },
-            {
-              title: "Trending Movies",
-              media_items: [
-                ...formattedMoviesTrending
-              ]
-            }
-          ]
-        }
+        sections: [
+          {
+            title: "Trending TV Series",
+            media_items: [
+              ...formattedTvTrending
+            ]
+          },
+          {
+            title: "Trending Movies",
+            media_items: [
+              ...formattedMoviesTrending
+            ]
+          }
+        ]
       }
 
       rp.status(200).send(results);
