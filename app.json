@@ -1,10 +1,10 @@
 {
-    "name": "Consumet API",
-    "description": "A Modern Search Engine API for Anime, Movies, Books, etc.",
-    "website": "https://consumet.org",
-    "repository": "https://github.com/consumet/consumet-api",
-    "logo": "https://consumet.org/images/consumetlogo.png",
-    "keywords": ["node", "fastify", "mongodb", "anime", "movies", "books", "manga", "api"],
+    "name": "",
+    "description": "",
+    "website": "",
+    "repository": "",
+    "logo": "",
+    "keywords": [],
     "env": {
         "PORT": {
             "description": "Set PORT for the fastify application to run on.",
