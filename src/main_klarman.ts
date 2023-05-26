@@ -19,10 +19,21 @@ export const redis =
 export const tmdbApi = process.env.apiKey && process.env.apiKey;
 
 const getImage = async (url: string) => {
-  const image = await axios.get(url, {
-    responseType: 'arraybuffer'
-  });
-  return 'data:image/png;base64,' + Buffer.from(image.data).toString('base64')
+  const imageBase64 = await cache.fetch(
+    redis as Redis,
+    `media:image:${url}`,
+    async () => {
+      const response = await axios.get(url, { responseType: 'arraybuffer' })
+      return 'data:image/png;base64,' + Buffer.from(response.data).toString('base64')
+    },
+    60 * 60 * 3
+  )
+
+
+  // const image = await axios.get(url, {
+  //   responseType: 'arraybuffer'
+  // });
+  // return 'data:image/png;base64,' + Buffer.from(image.data).toString('base64')
 }
 
 (async () => {
