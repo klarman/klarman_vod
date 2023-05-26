@@ -29,10 +29,7 @@ const getImage = async (url: string) => {
     60 * 60 * 3
   )
 
-  // const image = await axios.get(url, {
-  //   responseType: 'arraybuffer'
-  // });
-  return imageBase64//'data:image/png;base64,' + Buffer.from(image.data).toString('base64')
+  return imageBase64
 }
 
 (async () => {
