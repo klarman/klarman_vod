@@ -43,8 +43,9 @@ const getImage = async (url: string) => {
   const image = await axios.get(url, {
       responseType: 'arraybuffer'
   });
-  const returnedB64 = Buffer.from(image.data).toString('base64');
+  const returnedB64 = 'data:image/png;base64,' + Buffer.from(image.data).toString('base64');
   // console.log(returnedB64)
+  // return "data:" + image.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
   return returnedB64
 }
 
